@@ -1,0 +1,1 @@
+export { LoginEntrar } from './LoginEntrar';
