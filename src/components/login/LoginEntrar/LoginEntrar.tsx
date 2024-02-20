@@ -1,38 +1,41 @@
 import { Link } from "react-router-dom";
 import * as S from "./styles";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Input } from "../../forms/Input";
 import { Button } from "../../forms/Button";
 import { useLoginEntrar } from "../../../hooks/useLoginEntrar/useLoginEntrar";
+import { GET_USER, TOKEN_POST } from "../../../api/api";
 
 export function LoginEntrar() {
   const username = useLoginEntrar("");
   const password = useLoginEntrar("password");
-  console.log(username);
-  console.log(password);
 
-  // const [username, setUserName] = useState("");
-  // const [password, setPassword] = useState("");
-
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-
-    if (username.validate() && password.validate()) {
-      fetch("https://dogsapi.origamid.dev/json/jwt-auth/v1/token", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      })
-        .then((response) => {
-          console.log(response);
-          return response.json();
-        })
-        .then((json) => {
-          console.log(json);
-        });
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      getUser(token)
     }
+  }, []);
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    if (username.validate() && password.validate()) {
+      const { url, options } = TOKEN_POST({
+        username: username.value,
+        password: password.value,
+      });
+      const response = await fetch(url, options);
+      const json = await response.json();
+      window.localStorage.setItem("token", json.token);
+      getUser(json.token);
+    }
+  }
+
+  async function getUser(token: any) {
+    const { url, options } = GET_USER(token);
+    const response = await fetch(url, options);
+    const json = await response.json();
+    console.log(json);
   }
 
   return (
@@ -41,9 +44,10 @@ export function LoginEntrar() {
       <form action="">
         <Input label="Usuário" type="text" name="username" {...username} />
         <Input label="Senha" type="password" name="password" {...password} />
-        <Button type="button" onClick={handleSubmit}>Entrar</Button>
+        <Button type="button" onClick={handleSubmit}>
+          Entrar
+        </Button>
       </form>
-
       <Link to="/login/criar">Cadastrar</Link>
     </S.Container>
   );
