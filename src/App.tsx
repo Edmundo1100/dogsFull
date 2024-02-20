@@ -6,20 +6,23 @@ import { Footer } from "./components/Footer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./components/Home";
 import { Login } from "./components/login/Login";
+import { UserStorage } from "./context/userContext";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Header />
+        <UserStorage>
+          <Header />
 
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/login/*" element={<Login />}></Route>
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/login/*" element={<Login />}></Route>
+          </Routes>
 
-        <Footer />
-        <GlobalStyle />
+          <Footer />
+          <GlobalStyle />
+        </UserStorage>
       </BrowserRouter>
     </>
   );

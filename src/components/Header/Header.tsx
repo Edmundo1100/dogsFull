@@ -1,20 +1,30 @@
 import { Link } from "react-router-dom";
 import * as S from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import Dogs from "../../assets/dogs.svg";
+import { useContext } from "react";
+import { userContext } from "../../context/userContext";
 
 export function Header() {
+  const { data } = useContext(userContext);
+
   return (
     <S.Container>
       <nav>
         <Link to={"/"}>
-          {/* <img src={Dogs} alt="Dogs" /> */}
-		  <FontAwesomeIcon icon={['fas', 'shield-dog']} className="iconeDog"/>
+          <FontAwesomeIcon icon={["fas", "shield-dog"]} className="iconeDog" />
         </Link>
-        <Link to={"/login"}>
-			<span>Login / Criar</span>
-			<FontAwesomeIcon icon={['far', 'user']} className="iconeUsuario"/>
-			</Link>
+
+        {data ? (
+          <Link to={"/conta"}>
+            <span>{data.nome}</span>
+            <FontAwesomeIcon icon={["far", "user"]} className="iconeUsuario" />
+          </Link>
+        ) : (
+          <Link to={"/login"}>
+            <span>Login / Criar</span>
+            <FontAwesomeIcon icon={["far", "user"]} className="iconeUsuario" />
+          </Link>
+        )}
       </nav>
     </S.Container>
   );
