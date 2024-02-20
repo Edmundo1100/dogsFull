@@ -1,7 +1,6 @@
 import "./styles/fontAwesomeIcons";
-import "./App.scss";
 
-// import { GlobalStyle } from "./styles/global";
+import { GlobalStyle } from "./styles/global";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -20,7 +19,7 @@ function App() {
         </Routes>
 
         <Footer />
-        {/* <GlobalStyle /> */}
+        <GlobalStyle />
       </BrowserRouter>
     </>
   );

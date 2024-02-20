@@ -6,22 +6,25 @@ export const Container = styled.div`
   padding-left: 4rem;
   padding-right: 4rem;
   padding-bottom: 1rem;
-
+  
   nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    
     a {
       text-decoration: none;
+      color: var(--action);
     }
-
-    .iconeDog{
-        font-size: 3rem;
+    
+    .iconeDog {
+      font-size: 3rem;
+      color: var(--action);
     }
     .iconeUsuario {
-     margin-left: 1rem;
-     font-size: 1.5rem;
+      color: var(--action);
+      margin-left: 1rem;
+      font-size: 1.5rem;
     }
   }
 `;
