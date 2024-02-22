@@ -9,12 +9,20 @@ export const Container = styled.div`
     border: none;
     border-radius: 0.4rem;
     padding: 1rem 1.5rem;
-    background-color: var(--action);
+    /* background-color: var(--action); */
     color: var(--shape);
 
     transition: filter 0.2s;
     &:hover {
       filter: brightness(0.9);
     }
+  }
+
+  .primary{
+    background-color: var(--action);
+  }
+  .secudary{
+    background-color: var(--shape);
+    color: var(--text-secundary);
   }
 `;

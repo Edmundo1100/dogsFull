@@ -6,6 +6,7 @@ export const GlobalStyle = createGlobalStyle`
     --background: #ffe9eb;
     --shape: #ffffff;
     --text-body: #14213D;
+    --text-secundary: #817a7a;
 
     --action: #f1585a;
     --bordas: #dfdede;
@@ -58,39 +59,37 @@ export const GlobalStyle = createGlobalStyle`
   max-width: 100%;
 }
 
-// .react-modal-overlay{
-// background: rgba(0, 0, 0, 0.5) ;
-// position: fixed;
-// top: 0;
-// bottom: 0;
-// right: 0;
-// left: 0;
+.title{
+    line-height: 1;
+    font-size: 3rem;
+    margin: 1rem;
+    position: relative;
+    z-index: 1;
+}
+.title::after{
+    content: '';
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--action);
+    position: absolute;
+    bottom: 5px;
+    left: -5px;
+    border-radius: 0.25rem;
+    z-index: -1;
+    
+}
 
-// display: flex;
-// align-items: center;
-// justify-content: center;
-// }
-// .react-modal-content{
-// width: 100%;
-// max-width: 576px;
-// background-color: var(--background );
-// padding: 3rem;
-// position: relative;
-// border-radius: 0.25rem;
-// }
-// .btnCloseModal{
-// position: absolute;
-// right: 1.5rem;
-// top: 1.5rem;
-// border: 0;
-// background: transparent;
-// font-size: 25px;
-// color: var(--text-body);
-// transition: filter 0.2s;
-
-// &:hover{
-//     filter: brightness(0.8)
-// }
-// }
+.animeLeft{
+opacity: 0;
+transform: translateX(-20px);
+animation: animeLeft 0.4s forwards;
+}
+@keyframes animeLeft{
+    to{
+        opacity: 1;
+        transform: initial;
+    }
+}
 
  `;

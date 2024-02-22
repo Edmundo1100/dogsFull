@@ -3,9 +3,10 @@ import * as S from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { userContext } from "../../context/userContext";
+import { Button } from "../forms/Button";
 
 export function Header() {
-  const { data } = useContext(userContext);
+  const { data, userLogout } = useContext(userContext);
 
   return (
     <S.Container>
@@ -18,6 +19,9 @@ export function Header() {
           <Link to={"/conta"}>
             <span>{data.nome}</span>
             <FontAwesomeIcon icon={["far", "user"]} className="iconeUsuario" />
+            <Button type="button" onClick={userLogout}>
+              Sair
+            </Button>
           </Link>
         ) : (
           <Link to={"/login"}>

@@ -21,7 +21,19 @@ export function GET_USER(token: any) {
         headers: {
           Authorization: 'Bearer ' + token,
         },
-    }
+    } 
   };
 }
 
+
+export function TOKEN_VALIDADE_POST(token: any) {
+  return {
+    url: API_URL + "/jwt-auth/v1/token/validate",
+    options:{
+        method: "POST",
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+    }
+  };
+}

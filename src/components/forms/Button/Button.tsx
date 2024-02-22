@@ -2,10 +2,12 @@
 
 import * as S from "./styles";
 
-export function Button({ children, ...props}: any) {
+export function Button({ children, color, ...props }: any) {
   return (
     <S.Container>
-      <button {...props}>{children}</button>
+      <button className={color} {...props}>
+        {children}
+      </button>
     </S.Container>
   );
 }
