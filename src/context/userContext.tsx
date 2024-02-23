@@ -32,6 +32,8 @@ export const UserStorage = ({ children }: UserStorageProps) => {
         } else {
           userLogout();
         }
+      }else{
+        userLogout();
       }
     }
     autoLogin();
@@ -42,7 +44,6 @@ export const UserStorage = ({ children }: UserStorageProps) => {
     const res = await request(url, options);
     if (res.json) {
       window.localStorage.setItem("token", res.json.token);
-      setLogin(true);
       await getUser(res.json.token);
     } else {
       userLogout();
@@ -52,6 +53,7 @@ export const UserStorage = ({ children }: UserStorageProps) => {
     const { url, options } = GET_USER(token);
     const res = await request(url, options);
     if (res.json) {
+      setLogin(true);
       setdadosUsuario(res.json);
       navigate("/conta");
     } else {
