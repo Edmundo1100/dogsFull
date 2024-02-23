@@ -1,13 +1,17 @@
 import { ChangeEvent, useState } from "react";
 
 const types: any = {
-  email: {
-    regex: /^[\w-]+(\.[\w-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$/,
-    message: "Preencha um email válido.",
-  },
+  // email: {
+  //   regex: /^[\w-]+(\.[\w-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$/,
+  //   message: "Preencha um email válido.",
+  // },
+  // password: {
+  //   regex: /^(?=.*[0-9])(?=.*[a-zA-Z]).{2,}$/,
+  //   message: "Deve conter digitos e letras",
+  // },
 };
 
-export function useLoginEntrar(type: any) {
+export function useForm(type: any) {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
 

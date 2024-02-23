@@ -6,7 +6,7 @@ import { userContext } from "../../context/userContext";
 import { Button } from "../forms/Button";
 
 export function Header() {
-  const { data, userLogout } = useContext(userContext);
+  const { dadosUsuario, userLogout } = useContext(userContext);
 
   return (
     <S.Container>
@@ -15,11 +15,11 @@ export function Header() {
           <FontAwesomeIcon icon={["fas", "shield-dog"]} className="iconeDog" />
         </Link>
 
-        {data ? (
+        {dadosUsuario ? (
           <Link to={"/conta"}>
-            <span>{data.nome}</span>
+            <span>{dadosUsuario.nome}</span>
             <FontAwesomeIcon icon={["far", "user"]} className="iconeUsuario" />
-            <Button type="button" onClick={userLogout}>
+            <Button type="button" color="primary" onClick={userLogout}>
               Sair
             </Button>
           </Link>
