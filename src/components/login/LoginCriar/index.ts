@@ -1,0 +1,1 @@
+export { LoginCriar } from './LoginCriar';
