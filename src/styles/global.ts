@@ -3,12 +3,13 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 
 :root{
-    --background: #ffe9eb;
+    --background: #fff7f8;
     --shape: #ffffff;
     --text-body: #14213D;
     --text-secundary: #817a7a;
 
-    --action: #f1585a;
+    /* --action: #f1585a; */
+    --action: #e5b142;
     --bordas: #dfdede;
 
      --red: #e52e4d;
@@ -74,7 +75,7 @@ export const GlobalStyle = createGlobalStyle`
     background-color: var(--action);
     position: absolute;
     bottom: 5px;
-    left: -5px;
+    left: 0px;
     border-radius: 0.25rem;
     z-index: -1;
     

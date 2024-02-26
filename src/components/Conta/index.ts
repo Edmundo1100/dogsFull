@@ -1,1 +1,0 @@
-export { Conta } from './Conta';

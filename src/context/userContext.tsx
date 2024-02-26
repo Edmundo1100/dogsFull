@@ -1,6 +1,12 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { GET_USER, TOKEN_POST, TOKEN_VALIDADE_POST } from "../api/api";
+import {
+  GET_USER,
+  POST_USER,
+  TOKEN_POST,
+  TOKEN_VALIDADE_POST,
+} from "../api/api";
 import { useNavigate } from "react-router-dom";
+import { useFeatch } from "../hooks/useFetch";
 
 interface UserStorageProps {
   children: ReactNode;
@@ -8,71 +14,80 @@ interface UserStorageProps {
 
 export const userContext = createContext<any>({});
 export const UserStorage = ({ children }: UserStorageProps) => {
-  const [data, setData] = useState(null);
+  const [dadosUsuario, setdadosUsuario] = useState(null);
   const [login, setLogin] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const { loading, error, request } = useFeatch();
 
   useEffect(() => {
     async function autoLogin() {
       const token = window.localStorage.getItem("token");
       if (token) {
-        try {
-          setError(null);
-          setLoading(true);
-          const { url, options } = TOKEN_VALIDADE_POST(token);
-          const response = await fetch(url, options);
-          if (!response.ok) throw new Error("Token invalido");
+        const { url, options } = TOKEN_VALIDADE_POST(token);
+        const response = await request(url, options);
+        if (response.json) {
           await getUser(token);
-          navigate('/conta')
-        } catch (error) {
-           userLogout();
-        } finally {
-          setLoading(false);
+          navigate("/conta");
+        } else {
+          userLogout();
         }
+      }else{
+        userLogout();
       }
     }
     autoLogin();
   }, []);
 
   async function userLogin(username: string, password: string) {
-    try {
-      setError(null);
-      setLoading(true);
-      const { url, options } = TOKEN_POST({ username, password });
-      const responseToken = await fetch(url, options);
-      if (!responseToken.ok) throw new Error('Usuario ou senha invalido');
-      const {token} = await responseToken.json()
-      window.localStorage.setItem("token", token);
-      await getUser(token);
-      navigate('/conta')
-    } catch (error: any) {
-      setError(error.message);
-      // userLogout();
-    } finally {
-      setLoading(false);
+    const { url, options } = TOKEN_POST({ username, password });
+    const res = await request(url, options);
+    if (res.json) {
+      window.localStorage.setItem("token", res.json.token);
+      await getUser(res.json.token);
+    } else {
+      userLogout();
     }
   }
   async function getUser(token: any) {
     const { url, options } = GET_USER(token);
-    const response = await fetch(url, options);
-    const json = await response.json();
-    setData(json);
-    console.log("resposta", json);
+    const res = await request(url, options);
+    if (res.json) {
+      setLogin(true);
+      setdadosUsuario(res.json);
+      navigate("/conta");
+    } else {
+      userLogout();
+    }
+  }
+  async function criarUsuario(body: any) {
+    const { url, options } = POST_USER(body);
+    const res = await request(url, options);
+    console.log('resp',res);
+    if (res.json) {
+      await userLogin(body.username, body.password);
+    }
   }
   async function userLogout() {
-    setData(null);
-    setError(null);
-    setLoading(false);
+    setdadosUsuario(null);
     setLogin(false);
     window.localStorage.removeItem("token");
-    navigate('/login')
+    navigate('/login');
   }
 
   return (
     <>
-      <userContext.Provider value={{ userLogin, userLogout, data, error , loading, login }}>
+      <userContext.Provider
+        value={{
+          userLogin,
+          userLogout,
+          criarUsuario,
+          dadosUsuario,
+          error,
+          loading,
+          login,
+        }}
+      >
         {children}
       </userContext.Provider>
     </>
