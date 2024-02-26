@@ -49,3 +49,16 @@ export function POST_USER(body: any) {
     },
   };
 }
+
+export function PHOTO_POST(formData: any, token: any) {
+  return {
+    url: API_URL + "/api/photo",
+    options: {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+      body: formData,
+    },
+  };
+}
