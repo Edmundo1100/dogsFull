@@ -9,15 +9,15 @@ export function UserHeader() {
 
   useEffect(() => {
     switch (location.pathname) {
-      case '/conta/estatisticas':
-		setTitulo('Estatisticas')
+      case "/conta/estatisticas":
+        setTitulo("Estatisticas");
         break;
-      case '/conta/postarFoto':
-		setTitulo('Foste sua foto')
+      case "/conta/postarFoto":
+        setTitulo("Foste sua foto");
         break;
 
       default:
-		setTitulo('Minha conta')
+        setTitulo("Minha conta");
         break;
     }
   }, [location]);
