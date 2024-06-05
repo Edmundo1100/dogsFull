@@ -1,1 +1,0 @@
-export { UsuarioFotoPost } from './UsuarioFotoPost';

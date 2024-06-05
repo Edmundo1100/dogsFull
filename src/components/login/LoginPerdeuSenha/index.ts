@@ -1,1 +1,0 @@
-export { LoginPerdeuSenha } from './LoginPerdeuSenha';

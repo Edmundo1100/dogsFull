@@ -1,1 +1,0 @@
-export type { ButtonProps } from './Button.d.ts';

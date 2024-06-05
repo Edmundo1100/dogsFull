@@ -1,1 +1,0 @@
-export { LoginCriar } from './LoginCriar';
